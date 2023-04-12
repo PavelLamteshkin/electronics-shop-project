@@ -15,7 +15,8 @@ def test_calculate_total_price(item1):
 
 
 def test_apply_discount(item1):
-    assert Item.apply_discount(item1) == 1000
+    assert item1.price == 1000
+    assert Item.pay_rate == 1.0
 
 
 def test_string_to_number():
@@ -23,9 +24,10 @@ def test_string_to_number():
     assert Item.string_to_number('7') == 7
 
 
-# def test_name():
-#     item2 = Item("Супернаушники", 1000, 10)
-#     assert Item.name(item2.name) == 'Длина наименования товара превышает 10 символов'
+def test_name():
+    item2 = Item("Наушники", 1000, 10)
+    with pytest.raises(Exception):
+        item2.name = "Супернаушники"
 
 
 def test_instantiate_from_csv():

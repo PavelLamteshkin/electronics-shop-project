@@ -15,7 +15,6 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
-        # Item.all.append(self)
 
 
     @property
@@ -42,7 +41,7 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        return self.price * self.pay_rate
+        self.price * self.pay_rate
 
 
     @classmethod
@@ -52,7 +51,7 @@ class Item:
         """
         # path = os.path.abspath('items.csv')
         # print(os.path.isdir(r'C:\Users\MummyHouse\PycharmProjects\electronics-shop-project\src\items.csv'))
-        path = r'C:\Users\MummyHouse\PycharmProjects\electronics-shop-project\src\items.csv'
+        path = r'..\src\items.csv'
         with open(path) as csvfile:
             reader = csv.DictReader(csvfile, delimiter = ',')
             for row in reader:
@@ -61,6 +60,8 @@ class Item:
                 quantity = row['quantity']
                 item = [name, price, quantity]
                 Item.all.append(item)
+
+        return Item.all
 
 
     @staticmethod
