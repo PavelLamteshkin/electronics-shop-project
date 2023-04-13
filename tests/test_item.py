@@ -17,6 +17,9 @@ def test_calculate_total_price(item1):
 def test_apply_discount(item1):
     assert item1.price == 1000
     assert Item.pay_rate == 1.0
+    Item.pay_rate = 0.5
+    item1.apply_discount()
+    assert item1.price == 500.0
 
 
 def test_string_to_number():
@@ -31,5 +34,5 @@ def test_name():
 
 
 def test_instantiate_from_csv():
-    assert Item.instantiate_from_csv() == None
+    assert len(Item.instantiate_from_csv()) == 5
 

@@ -41,7 +41,7 @@ class Item:
         """
         Применяет установленную скидку для конкретного товара.
         """
-        self.price * self.pay_rate
+        self.price *= self.pay_rate
 
 
     @classmethod
@@ -58,7 +58,7 @@ class Item:
                 name = row['name']
                 price = row['price']
                 quantity = row['quantity']
-                item = [name, price, quantity]
+                item = cls(name, price, quantity)
                 Item.all.append(item)
 
         return Item.all
