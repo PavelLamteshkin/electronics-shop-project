@@ -15,6 +15,7 @@ class Item:
         self.__name = name
         self.price = price
         self.quantity = quantity
+        self.all.append(self)
 
 
     @property
@@ -51,6 +52,7 @@ class Item:
         """
         # path = os.path.abspath('items.csv')
         # print(os.path.isdir(r'C:\Users\MummyHouse\PycharmProjects\electronics-shop-project\src\items.csv'))
+        cls.all = []
         path = r'..\src\items.csv'
         with open(path) as csvfile:
             reader = csv.DictReader(csvfile, delimiter = ',')
@@ -59,9 +61,8 @@ class Item:
                 price = row['price']
                 quantity = row['quantity']
                 item = cls(name, price, quantity)
-                Item.all.append(item)
 
-        return Item.all
+        return cls.all
 
 
     @staticmethod
@@ -72,4 +73,3 @@ class Item:
         return round(int(float(num)))
 
 # print(Item.instantiate_from_csv())
-
