@@ -1,6 +1,7 @@
 import csv
 import os.path
 
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -80,5 +81,7 @@ class Item:
         """
         return round(int(float(num)))
 
-# item1 = Item("Смартфон", 10000, 20)
-# print(item1)
+    def __add__(self, other):
+        if not isinstance(other, Item):
+            raise ValueError('Объект не принадлежит классам Phone и Item.')
+        return self.quantity + other.quantity
