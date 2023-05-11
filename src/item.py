@@ -8,6 +8,9 @@ class Item:
     pay_rate = 1.0
     all = []
 
+    path = r'..\src\items.csv'
+    # path = r'..\src\wrong_items.csv'
+
     def __init__(self, name: str, price: float, quantity: int) -> None:
         """
         Создание экземпляра класса item.
@@ -52,19 +55,34 @@ class Item:
         """
         метод инициализирующий экземпляры класса Item данными из файла src/items.csv
         """
-        # path = os.path.abspath('items.csv')
-        # print(os.path.isdir(r'C:\Users\MummyHouse\PycharmProjects\electronics-shop-project\src\items.csv'))
-        cls.all = []
-        path = r'..\src\items.csv'
-        with open(path) as csvfile:
-            reader = csv.DictReader(csvfile, delimiter = ',')
-            for row in reader:
-                name = row['name']
-                price = row['price']
-                quantity = row['quantity']
-                item = cls(name, price, quantity)
 
-        return cls.all
+        # cls.all = []
+        # path = r'..\src\items.csv'
+
+        try:
+            with open(cls.path) as csvfile:
+                reader = csv.DictReader(csvfile, delimiter=',')
+        except FileNotFoundError:
+            print('FileNotFoundError: Отсутствует файл items.csv')
+        else:
+            try:
+                with open(cls.path) as csvfile:
+                    reader = csv.DictReader(csvfile, delimiter=',')
+                    if len(reader.fieldnames) != 3:
+                        raise InstantiateCSVError
+            except InstantiateCSVError as a:
+                print('InstantiateCSVError: Файл item.csv поврежден')
+            else:
+                with open(cls.path) as csvfile:
+                    reader = csv.DictReader(csvfile, delimiter=',')
+                    for row in reader:
+                        name = row['name']
+                        price = row['price']
+                        quantity = row['quantity']
+                        item = cls(name, price, quantity)
+
+                    return cls.all
+        return 'no value found'
 
     @staticmethod
     def string_to_number(num: str):
@@ -77,3 +95,7 @@ class Item:
         if not isinstance(other, Item):
             raise ValueError('Объект не принадлежит классам Phone и Item.')
         return self.quantity + other.quantity
+
+
+class InstantiateCSVError(BaseException):
+    a = 'InstantiateCSVError: Файл item.csv поврежден'

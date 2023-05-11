@@ -51,3 +51,14 @@ def test___add__():
     item1 = Item("Смартфон", 10000, 20)
     item2 = Item("iPhone", 100_000, 10)
     assert item1 + item2 == 30
+
+
+Item.path = r'..\src\wrong_items.csv'
+def test_instantiate_from_csv():
+    assert Item.instantiate_from_csv() == 'InstantiateCSVError: Файл items.csv поврежден'
+
+
+Item.path = r'..\src\wrong_name.csv'
+def test_instantiate_from_csv():
+    assert Item.path == "..\\src\\wrong_name.csv"
+    assert Item.instantiate_from_csv() == 'FileNotFoundError: Отсутствует файл item.csv'
